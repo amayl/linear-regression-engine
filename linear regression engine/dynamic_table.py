@@ -172,22 +172,24 @@ class DynamicTable(ctk.CTkFrame):
                 entry.delete(0, END)
     
     def calculate(self):
-        """Get X and Y values as separate arrays"""
-        x_values = []
-        y_values = []
-        
-        for row in self.entries:
-            # Get X value (first column)
-            x_val: float = float(row[0].get().strip())
-            # Get Y value (second column) 
-            y_val: float = float(row[1].get().strip())
-            
-            # Only add if both have values
-            if x_val and y_val:
+    """Get X and Y values as separate arrays"""
+    x_values = []
+    y_values = []
+    
+    for row in self.entries:
+        x_text = row[0].get().strip()
+        y_text = row[1].get().strip()
+        if x_text != "" and y_text != "":
+            try:
+                x_val = float(x_text)
+                y_val = float(y_text)
                 x_values.append(x_val)
                 y_values.append(y_val)
-    
-        regression_line(x_values, y_values)
+            except ValueError:
+                # show a warning here if invalid data is entered
+                pass
+
+    regression_line(x_values, y_values)
     
     
     def set_data(self, data: List[List[str]]):
