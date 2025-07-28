@@ -178,9 +178,9 @@ class DynamicTable(ctk.CTkFrame):
         
         for row in self.entries:
             # Get X value (first column)
-            x_val: int = int(row[0].get().strip())
+            x_val: float = float(row[0].get().strip())
             # Get Y value (second column) 
-            y_val: int = int(row[1].get().strip())
+            y_val: float = float(row[1].get().strip())
             
             # Only add if both have values
             if x_val and y_val:
@@ -208,4 +208,4 @@ class DynamicTable(ctk.CTkFrame):
                 for j, value in enumerate(row_data):
                     if j < len(self.entries[i]):
                         self.entries[i][j].delete(0, END)
-                        self.entries[i][j].insert(0, int(value))
+                        self.entries[i][j].insert(0, float(value))
