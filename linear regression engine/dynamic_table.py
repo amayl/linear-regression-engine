@@ -1,7 +1,7 @@
 from tkinter import END
 import customtkinter as ctk
 from typing import List, Any
-
+from engine import *
 
 class DynamicTable(ctk.CTkFrame):
     def __init__(self, parent, headers: List[str], initial_rows: int = 5, **kwargs):
@@ -136,13 +136,13 @@ class DynamicTable(ctk.CTkFrame):
         )
         clear_btn.pack(side="left", padx=5, pady=5)
         
-        get_data_btn = ctk.CTkButton(
+        calculate_btn = ctk.CTkButton(
             controls_frame,
-            text="Get Data",
-            command=self.get_data,
+            text="Calculate",
+            command=self.calculate,
             width=100
         )
-        get_data_btn.pack(side="right", padx=5, pady=5)
+        calculate_btn.pack(side="right", padx=5, pady=5)
     
     def add_row_and_update_controls(self):
         """Add a row and update control positions"""
@@ -171,7 +171,7 @@ class DynamicTable(ctk.CTkFrame):
             for entry in row:
                 entry.delete(0, END)
     
-    def get_data(self):
+    def calculate(self):
         """Get X and Y values as separate arrays"""
         x_values = []
         y_values = []
@@ -187,8 +187,7 @@ class DynamicTable(ctk.CTkFrame):
                 x_values.append(x_val)
                 y_values.append(y_val)
     
-        print(f"X values: {x_values}")
-        print(f"Y values: {y_values}")
+        regression_line(x_values, y_values)
     
     
     def set_data(self, data: List[List[str]]):

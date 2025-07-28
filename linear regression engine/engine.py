@@ -1,0 +1,52 @@
+from typing import List
+from matplotlib import pyplot as plt
+import numpy as np
+
+""" Calculates the mean of a list"""
+def mean(values: List[int]) -> float:
+    sum: int = 0
+    n: int = len(values)
+
+    for i in range(0, n):
+        sum += values[i]
+    
+    return (sum / n)
+
+""" Calculates the summary statistic for either Sxx or Syy"""
+def ss1(values: List[int]) -> float:
+    sum: int = 0
+    n: int = len(values)
+
+    for i in range(0, n):
+        sum += (values[i] - mean(values))**2
+
+    return sum
+
+""" Calculates the summary statistic for Sxy"""
+def ss2(xValues: List[int], yValues: List[int]) -> float:
+    sum: int = 0
+    n: int = len(xValues)
+
+    for i in range(0, n):
+        sum += (xValues[i] - mean(xValues))*(yValues[i] - mean(yValues))
+    
+    return sum
+
+""" Regresion line in the form y = a + bx"""
+def regression_line(xValues: List[int], yValues: List[int]):
+    b = ss2(xValues, yValues) / ss1(xValues)
+    a = mean(yValues) - b * mean(xValues)
+
+    r = ss2(xValues, yValues) / (ss1(xValues) * ss1(yValues))**0.5
+
+
+    x = np.linspace(0, 100, 1000)
+    y = a + b*x
+    
+    plt.scatter(xValues, yValues)
+    plt.plot(x, y, color='blue')
+    plt.title(f"y = {a} + {b}x, r = {r}")
+    plt.xlabel('X')
+    plt.ylabel('Y')
+    plt.legend()
+    plt.show()
