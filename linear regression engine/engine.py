@@ -5,7 +5,7 @@ import numpy as np
 """ Calculates the mean of a list"""
 def mean(values: List[float]) -> float:
     sum: float = 0
-    n: float = len(values)
+    n: int = len(values)
 
     for i in range(0, n):
         sum += values[i]
@@ -15,20 +15,22 @@ def mean(values: List[float]) -> float:
 """ Calculates the summary statistic for either Sxx or Syy"""
 def ss1(values: List[float]) -> float:
     sum: float = 0
-    n: float = len(values)
+    n: int = len(values)
+    avg = mean(values)
 
     for i in range(0, n):
-        sum += (values[i] - mean(values))**2
+        sum += (values[i] - avg)**2
 
     return sum
 
 """ Calculates the summary statistic for Sxy"""
 def ss2(xValues: List[float], yValues: List[float]) -> float:
     sum: float = 0
-    n: float = len(xValues)
+    n: int = len(xValues)
+    avgx, avgy = mean(xValues), mean(yValues)
 
     for i in range(0, n):
-        sum += (xValues[i] - mean(xValues))*(yValues[i] - mean(yValues))
+        sum += (xValues[i] - avgx)*(yValues[i] - avgy)
     
     return sum
 
@@ -50,3 +52,5 @@ def regression_line(xValues: List[float], yValues: List[float]):
     plt.ylabel('Y')
     plt.legend()
     plt.show()
+
+    return a,b,r
